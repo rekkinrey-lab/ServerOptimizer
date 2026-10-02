@@ -1,0 +1,71 @@
+# CrystalOptimizer config. Run /crystalopt reload after editing.
+
+# Worlds the plugin touches. Empty list = all worlds.
+worlds: []
+
+# ---------------------------------------------------------------
+# End crystal / explosion lag (the main crystalpvp lag source)
+# ---------------------------------------------------------------
+explosions:
+  # Crystal explosions never drop items (less entity spam).
+  no-drops: true
+  # false = crystal explosions don't break blocks at all (biggest saving).
+  # Damage to players is NOT affected either way.
+  block-damage: true
+  # If more than this many explosions hit one chunk in a single tick,
+  # the extras skip block calculations (damage still applies).
+  max-block-explosions-per-chunk-per-tick: 3
+  # Max end crystals alive in one chunk. New ones past this are cancelled.
+  # 0 = unlimited.
+  max-crystals-per-chunk: 40
+
+# ---------------------------------------------------------------
+# Ground entity cleanup (runs every interval-seconds)
+# ---------------------------------------------------------------
+cleanup:
+  enabled: true
+  interval-seconds: 20
+  item-max-age-seconds: 150
+  max-items-per-chunk: 40        # oldest are removed first; 0 = unlimited
+  xp-orb-max-age-seconds: 30
+  stuck-arrow-max-age-seconds: 20
+
+# ---------------------------------------------------------------
+# Mobs
+# ---------------------------------------------------------------
+mobs:
+  # PvP arena servers rarely need natural mobs.
+  block-natural-spawns: true
+  # Cap on non-player living entities per chunk (plugin/command/egg spawns are exempt).
+  max-per-chunk: 12
+
+# ---------------------------------------------------------------
+# Per-player view / simulation distance (Paper API)
+# Bedrock players are detected via Floodgate UUIDs (no dependency needed).
+# ---------------------------------------------------------------
+distances:
+  enabled: true
+  java:
+    view: 8
+    simulation: 5
+  bedrock:
+    view: 6          # Geyser has to translate every chunk, so keep this lower
+    simulation: 4
+  # Lower distances automatically when TPS drops, restore when it recovers.
+  dynamic:
+    enabled: true
+    low-tps: 18.0
+    high-tps: 19.6
+    max-reduction: 3     # chunks removed at worst
+    min-view: 4
+    min-simulation: 3
+  check-interval-seconds: 5
+
+# ---------------------------------------------------------------
+# Chunk unloading (frees RAM). Respects force-loaded chunks and plugin tickets.
+# ---------------------------------------------------------------
+chunks:
+  unload-enabled: true
+  interval-seconds: 60
+  margin: 3                  # extra chunks kept around each player's view distance
+  max-unloads-per-run: 100

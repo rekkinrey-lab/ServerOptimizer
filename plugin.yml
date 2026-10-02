@@ -1,0 +1,18 @@
+name: CrystalOptimizer
+main: dev.crystalopt.CrystalOptimizer
+version: 1.0.0
+api-version: '1.20'
+description: Lag, FPS and RAM optimizations for crystal PvP sandbox servers.
+softdepend: [Geyser-Spigot, floodgate]
+
+commands:
+  crystalopt:
+    description: CrystalOptimizer admin command
+    usage: /<command> <status|reload|clear>
+    aliases: [copt]
+    permission: crystalopt.admin
+
+permissions:
+  crystalopt.admin:
+    description: Use /crystalopt
+    default: op
